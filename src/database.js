@@ -18,6 +18,10 @@ module.exports = {
 
       dbConnection = db.db("simple_cache");
 
+      dbConnection
+        .collection("cache")
+        .createIndex({ key: 1 }, { unique: true });
+
       return callback();
     });
   },
