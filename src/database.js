@@ -30,6 +30,8 @@ async function findOneOrInsert(key) {
 
   //data not found
   if (!findResult) {
+    console.log("Cache miss");
+
     console.log(`Key: ${key}, not found. Generating random string instead.`);
 
     try {
@@ -43,6 +45,8 @@ async function findOneOrInsert(key) {
 
   //ttl expired
   if (new Date(findResult.ttl).getTime() < new Date().getTime()) {
+    console.log("Cache hit");
+
     console.log(
       `Key: ${findResult.key}, ttl is expired. Generating random string instead.`
     );
