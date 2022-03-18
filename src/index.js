@@ -28,6 +28,7 @@ database.connectToServer(function (error) {
     console.log(`Max cache entries is: ${process.env.MAX_ENTRIES || 10}`);
   });
 });
+
 app.post("/insert", async function (req, res) {
   const { key, value } = req.body;
 
@@ -92,6 +93,7 @@ app.get("/item", async function (req, res) {
 
   res.send({ error: null, key: result.key, value: result.value });
 });
+
 app.get("/items", async function (req, res) {
   let result;
 
@@ -127,7 +129,7 @@ app.delete("/item", async function (req, res) {
 
   res.status(204);
   res.send({ error: null });
-  });
+});
 
 app.delete("/items", async function (req, res) {
   try {
