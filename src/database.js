@@ -14,6 +14,71 @@ function getNewDate() {
 
   return new Date(date);
 }
+
+//if a key is found it returns cached data
+//otherwise inserts random string
+async function findOneOrInsert(key) {
+  let findResult;
+
+  try {
+    findResult = await dbConnection.collection("cache").findOne({ key });
+  } catch (error) {
+    console.error("Error finding data");
+    return Promise.reject(error);
+  }
+
+  //data not found
+  if (!findResult) {
+    console.log(`Key: ${key}, not found. Generating random string instead.`);
+
+    try {
+      const value = uuid.v4();
+      const response = await insertData(key, value);
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  //ttl expired
+  if (new Date(findResult.ttl).getTime() < new Date().getTime()) {
+    console.log(
+      `Key: ${findResult.key}, ttl is expired. Generating random string instead.`
+    );
+
+    const date = getNewDate();
+
+    try {
+      const value = uuid.v4();
+
+      await updateData(findResult.key, {
+        value: uuid.v4(),
+        ttl: date.toISOString(),
+      });
+
+      return Promise.resolve({ key: findResult.key, value });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  //everything checked out so lets update ttl
+  const date = getNewDate();
+
+  const value = uuid.v4();
+
+  try {
+    await updateData(findResult.key, {
+      value,
+      ttl: date,
+    });
+
+    return Promise.resolve({ key: findResult.key, value, state: "found" });
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 //inserts data for a given key
 function insertData(key, value) {
   return new Promise((resolve, reject) => {
