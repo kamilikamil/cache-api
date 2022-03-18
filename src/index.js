@@ -107,5 +107,25 @@ app.get("/items", async function (req, res) {
 
   res.send({ error: null, values: result });
 });
+
+app.delete("/item", async function (req, res) {
+  const { key } = req.body;
+
+  if (!key) {
+    res.status(400);
+    res.send({ msg: "key cannot be empty" });
+    return;
+  }
+
+  try {
+    await database.removeItem(key);
+  } catch (error) {
+    res.status(500);
+    res.send({ error: { msg: "Unexpected Error." } });
+    return;
+  }
+
+  res.status(204);
+  res.send({ error: null });
   });
 });
