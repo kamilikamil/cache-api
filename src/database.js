@@ -9,6 +9,23 @@ const client = new MongoClient(connectionString, {
 
 let dbConnection;
 
+//updates the data for a given key
+async function updateData(key, value) {
+  try {
+    await dbConnection.collection("cache").updateOne(
+      { key },
+      {
+        $set: value,
+      }
+    );
+  } catch (error) {
+    console.error(`Error updating data for key ${key} with values: ${value}`);
+    return Promise.reject(error);
+  }
+
+  return Promise.resolve();
+}
+
 function getAllItems(callback) {
   dbConnection
     .collection("cache")
