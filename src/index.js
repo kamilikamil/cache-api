@@ -48,6 +48,7 @@ app.post("/insert", async function (req, res) {
   try {
     result = await database.add(key, value);
   } catch (error) {
+    console.error(error);
     res.status(500);
     res.send({ error: { msg: "Unexpected Error." } });
     return;
@@ -78,6 +79,7 @@ app.get("/item", async function (req, res) {
   try {
     result = await database.getValue(key);
   } catch (error) {
+    console.error(error);
     res.status(500);
     res.send({ error: { msg: "Unexpected Error." } });
     return;
@@ -100,6 +102,7 @@ app.get("/items", async function (req, res) {
   try {
     result = await database.getAllValues();
   } catch (error) {
+    console.error(error);
     res.status(500);
     res.send({ error: { msg: "Unexpected Error." } });
     return;
@@ -122,6 +125,7 @@ app.delete("/item", async function (req, res) {
   try {
     await database.removeItem(key);
   } catch (error) {
+    console.error(error);
     res.status(500);
     res.send({ error: { msg: "Unexpected Error." } });
     return;
@@ -135,6 +139,7 @@ app.delete("/items", async function (req, res) {
   try {
     await database.removeAll();
   } catch (error) {
+    console.error(error);
     res.status(500);
     res.send({ error: { msg: "Unexpected Error." } });
     return;
