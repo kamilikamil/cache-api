@@ -74,6 +74,7 @@ async function findOneOrInsert(key) {
       ttl: date,
     });
 
+    console.log("Cache hit");
     return Promise.resolve({ key: findResult.key, value, state: "found" });
   } catch (error) {
     return Promise.reject(error);
