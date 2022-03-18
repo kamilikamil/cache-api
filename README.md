@@ -21,6 +21,16 @@ npm start
 > Got MongoParseError?
 > Make sure the _MONGODB_DATABASE_URI_ is present in the _.env_ file in the _src_ folder
 
+### Defaults
+
+|          Name | Value | Description                                  |
+| ------------: | :---: | -------------------------------------------- |
+|        `PORT` | 6060  | Port API runs on.                            |
+| `TTL_SECONDS` |  10   | Max TTL of each item in the cache.           |
+| `MAX_ENTRIES` |  10   | Total number of allowed entries in the cache |
+
+You can overwrite these values by adding them in the _env_ file along side with _MONGODB_DATABASE_URI_
+
 ## API Endpoints
 
 Below endpoints have been implemented.
