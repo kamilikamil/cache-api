@@ -62,5 +62,35 @@ app.post("/insert", async function (req, res) {
 
   res.send({ error: null, key: result.key, value: result.value });
 });
+
+app.get("/item", async function (req, res) {
+  const { key } = req.body;
+
+  if (!key) {
+    res.status(400);
+    res.send({ msg: "key cannot be empty" });
+    return;
+  }
+
+  let result;
+
+  try {
+    result = await database.getValue(key);
+  } catch (error) {
+    res.status(500);
+    res.send({ error: { msg: "Unexpected Error." } });
+    return;
+  }
+
+  if (result.state === "updated") {
+    res.status(200);
+  } else if (result.state === "inserted") {
+    res.status(201);
+  } else {
+    res.status(202);
+  }
+
+  res.send({ error: null, key: result.key, value: result.value });
+});
   });
 });
