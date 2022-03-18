@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/kamilikamil/simple-cache-api#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
