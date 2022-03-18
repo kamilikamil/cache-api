@@ -9,6 +9,11 @@ const client = new MongoClient(connectionString, {
 
 let dbConnection;
 
+function getNewDate() {
+  const date = new Date().getTime() + (1000 * process.env.TTL_SECONDS || 10);
+
+  return new Date(date);
+}
 //updates the data for a given key
 async function updateData(key, value) {
   try {
