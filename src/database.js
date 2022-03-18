@@ -203,7 +203,58 @@ module.exports = {
     });
   },
 
-  getDb: function () {
-    return dbConnection;
+  add: function (key, value) {
+    return insertData(key, value);
+  },
+
+  getValue: function (key) {
+    return findOneOrInsert(key);
+  },
+
+  getAllValues: function () {
+    return new Promise((resolve, reject) => {
+      getAllItems(function (error, result) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        const withoutIDs = result.map((item) => {
+          delete item._id;
+
+          return item;
+        });
+
+        resolve(withoutIDs);
+      });
+    });
+  },
+
+  removeItem: function (key) {
+    return new Promise((resolve, reject) => {
+      dbConnection
+        .collection("cache")
+        .deleteOne({ key }, function (error, result) {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          resolve();
+        });
+    });
+  },
+
+  removeAll: function () {
+    return new Promise((resolve, reject) => {
+      dbConnection.collection("cache").deleteMany({}, function (error, result) {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        resolve();
+      });
+    });
   },
 };
