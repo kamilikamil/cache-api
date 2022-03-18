@@ -58,7 +58,7 @@ async function findOneOrInsert(key) {
 
       await updateData(findResult.key, {
         value: uuid.v4(),
-        ttl: date.toISOString(),
+        ttl,
       });
 
       return Promise.resolve({ key: findResult.key, value });
