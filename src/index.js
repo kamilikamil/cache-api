@@ -92,5 +92,20 @@ app.get("/item", async function (req, res) {
 
   res.send({ error: null, key: result.key, value: result.value });
 });
+app.get("/items", async function (req, res) {
+  let result;
+
+  try {
+    result = await database.getAllValues();
+  } catch (error) {
+    res.status(500);
+    res.send({ error: { msg: "Unexpected Error." } });
+    return;
+  }
+
+  res.status(200);
+
+  res.send({ error: null, values: result });
+});
   });
 });
