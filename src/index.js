@@ -28,5 +28,39 @@ database.connectToServer(function (error) {
     console.log(`Max cache entries is: ${process.env.MAX_ENTRIES || 10}`);
   });
 });
+app.post("/insert", async function (req, res) {
+  const { key, value } = req.body;
+
+  if (!key) {
+    res.status(400);
+    res.send({ msg: "key cannot be empty" });
+    return;
+  }
+
+  if (!value) {
+    res.status(400);
+    res.send({ error: { msg: "Value cannot be empty" } });
+    return;
+  }
+
+  let result;
+  try {
+    result = await database.add(key, value);
+  } catch (error) {
+    res.status(500);
+    res.send({ error: { msg: "Unexpected Error." } });
+    return;
+  }
+
+  const { state } = result;
+
+  if (state === "updated") {
+    res.status(200);
+  } else {
+    res.status(201);
+  }
+
+  res.send({ error: null, key: result.key, value: result.value });
+});
   });
 });
