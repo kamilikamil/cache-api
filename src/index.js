@@ -128,4 +128,17 @@ app.delete("/item", async function (req, res) {
   res.status(204);
   res.send({ error: null });
   });
+
+app.delete("/items", async function (req, res) {
+  try {
+    await database.removeAll();
+  } catch (error) {
+    res.status(500);
+    res.send({ error: { msg: "Unexpected Error." } });
+    return;
+  }
+
+  res.status(204);
+
+  res.send({ error: null });
 });
