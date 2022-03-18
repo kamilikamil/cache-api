@@ -23,7 +23,7 @@ database.connectToServer(function (error) {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 
-    console.log(`TTL of cache is: ${process.env.TTL_SECONDS || 10} seconds`);
+    console.log(`TTL of cache is: ${process.env.TTL_SECONDS || 120} seconds`);
 
     console.log(`Max cache entries is: ${process.env.MAX_ENTRIES || 10}`);
   });

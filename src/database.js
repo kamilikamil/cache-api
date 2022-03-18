@@ -11,7 +11,7 @@ const client = new MongoClient(connectionString, {
 let dbConnection;
 
 function getNewDate() {
-  const date = new Date().getTime() + (1000 * process.env.TTL_SECONDS || 10);
+  const date = new Date().getTime() + 1000 * (process.env.TTL_SECONDS || 120);
 
   return new Date(date);
 }
@@ -44,7 +44,7 @@ async function findOneOrInsert(key) {
   }
 
   //ttl expired
-  if (new Date(findResult.ttl).getTime() < new Date().getTime()) {
+  if (findResult.ttl.getTime() < new Date().getTime()) {
     console.log("Cache hit");
 
     console.log(
@@ -58,7 +58,7 @@ async function findOneOrInsert(key) {
 
       await updateData(findResult.key, {
         value: uuid.v4(),
-        ttl,
+        ttl: date,
       });
 
       return Promise.resolve({ key: findResult.key, value });
