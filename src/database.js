@@ -95,7 +95,7 @@ function insertData(key, value) {
       }
 
       //check if cache is full
-      if (result.length > (process.env.MAX_ENTRIES || 10)) {
+      if (result.length >= (process.env.MAX_ENTRIES || 10)) {
         console.log("Cache is full. Will overwrite the key with oldest ttl");
 
         return dbConnection
