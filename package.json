@@ -4,7 +4,6 @@
   "description": "Simple cache implementation using Express and MongoDB",
   "main": "index.js",
   "scripts": {
-    "install": "npm install",
     "start": "nodemon ./src/index.js"
   },
   "repository": {
