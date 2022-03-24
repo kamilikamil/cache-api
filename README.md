@@ -8,7 +8,7 @@ Simple cache implementation using Express and MongoDB
 
 > Make sure you have **Node** and **MongoDB** installed on your system.
 
-> Add _.env_ file to _src_ folder. Add MongoDB URL to _MONGODB_DATABASE_URI_ in the .env file
+> Add _.env_ file. Add MongoDB URL to _MONGODB_DATABASE_URI_ in the .env file
 
 After the above steps, run:
 
@@ -41,7 +41,7 @@ Below endpoints have been implemented.
 
 <br>
 
-`POST` [http:localhost:6060/insert]
+`POST` [http://localhost:6060/insert]
 
 **Parameters**
 
@@ -64,7 +64,7 @@ Below endpoints have been implemented.
 
 <br>
 
-`GET` [http:localhost:6060/item]
+`GET` [http://localhost:6060/item]
 
 **Parameters**
 
@@ -88,7 +88,7 @@ Below endpoints have been implemented.
 
 <br>
 
-`GET` [http:localhost:6060/items]
+`GET` [http://localhost:6060/items]
 
 **Parameters**
 
@@ -119,7 +119,7 @@ Below endpoints have been implemented.
 
 <br>
 
-`DELETE` [http:localhost:6060/item]
+`DELETE` [http://localhost:6060/item]
 
 **Parameters**
 
@@ -137,7 +137,7 @@ No response in case of success
 
 <br>
 
-`DELETE` [http:localhost:6060/items]
+`DELETE` [http://localhost:6060/items]
 
 **Parameters**
 
